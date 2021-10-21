@@ -7,21 +7,18 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import click
-import xlrd
+
 
 
 # In[2]:
 
 
-import xlrd
+
  
 # Give the location of the file
-loc = ("P:/COB.xls")
+loc = "P:/COB.xlsx"
  
-# To open Workbook
-wb = xlrd.open_workbook(loc)
-sheet = wb.sheet_by_index(0)
+
 data = pd.read_excel(loc)
 
 
