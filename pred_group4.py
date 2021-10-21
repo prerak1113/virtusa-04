@@ -1,28 +1,37 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 import streamlit as st
 import pandas as pd
 import numpy as np
+import click
 import xlrd
 
 
 # In[2]:
 
 
-data = pd.read_excel("P:/COB.xlsx")
+import xlrd
+ 
+# Give the location of the file
+loc = ("P:/COB.xls")
+ 
+# To open Workbook
+wb = xlrd.open_workbook(loc)
+sheet = wb.sheet_by_index(0)
+data = pd.read_excel(loc)
 
 
-# In[4]:
+# In[3]:
 
 
 train_data = data.drop(["Unnamed: 0","Claim ID","Primary","Secondary","Plan_Type","CoInsurance","OOP","Primary_paid","Secondary_paid","TPL"], axis=1)
 
 
-# In[6]:
+# In[4]:
 
 
 from sklearn.model_selection import train_test_split
@@ -32,7 +41,7 @@ y = train_data["Total_Coverage"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
 
-# In[7]:
+# In[5]:
 
 
 from sklearn.preprocessing import StandardScaler
@@ -42,7 +51,7 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
 
-# In[8]:
+# In[6]:
 
 
 print(X_train.shape)
@@ -50,7 +59,7 @@ print(X_test.shape)
 print(y_train.shape)
 
 
-# In[9]:
+# In[7]:
 
 
 from sklearn.ensemble import RandomForestRegressor
@@ -60,7 +69,7 @@ regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 
 
-# In[10]:
+# In[8]:
 
 
 '''
@@ -72,7 +81,7 @@ print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_p
 '''
 
 
-# In[11]:
+# In[9]:
 
 
 import random
@@ -92,19 +101,19 @@ new_input.shape
 new_input = np.reshape(new_input,(new_input.shape[0],new_input.shape[1]))
 
 
-# In[12]:
+# In[10]:
 
 
 new_input = sc.transform(new_input)
 
 
-# In[13]:
+# In[11]:
 
 
 pred1 = regressor.predict(new_input)
 
 
-# In[ ]:
+# In[12]:
 
 
 
@@ -112,5 +121,4 @@ Mem = st.text_input("Enter your member ID ")
 Bill = st.text_input("Enter your claim amount")
 p_class = st.selectbox("Plan Type",options=['Plan1' , 'Plan2' , 'Plan3'])
 st.subheader('Your total coverage is {}'.format(pred1))
-
 
