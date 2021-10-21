@@ -107,10 +107,10 @@ pred1 = regressor.predict(new_input)
 # In[ ]:
 
 
-'''
+
 Mem = st.text_input("Enter your member ID ")
 Bill = st.text_input("Enter your claim amount")
 p_class = st.selectbox("Plan Type",options=['Plan1' , 'Plan2' , 'Plan3'])
 st.subheader('Your total coverage is {}'.format(pred1))
-'''
+
 
